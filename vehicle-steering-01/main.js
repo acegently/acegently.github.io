@@ -14,6 +14,8 @@ var divControl;  // Control container
 var divStatus;  // Status container
 
 // Scene Objects
+var v;
+var t = 0;
 
 // == Scene Setup ==
 function setup() {
@@ -24,7 +26,8 @@ function setup() {
 	angleMode(DEGREES);
 
 	//Property Initialization
-	// DEBUG
+	v = new Vehicle(createVector(20, 40), 32);
+	v.position = createVector(width / 2, height / 2);
 }
 
 // == Main Loop ==
@@ -40,22 +43,29 @@ function draw() {
 	}
 
 	ReportStatus();
+
+	//t++;
 }
 
 // Process Data
 function Update() {
+	if (t % 10 == 0) {
+		v.applyWheelForce(0, 1);
+		v.Process();
+	}
 }
 
 // Render Scene
 function Render() {
-	background(0, 64);
+	background(0);
+
+	v.Draw();
 }
 
 // Report Data
 function ReportStatus() {
-	lblFPS.html("FPS: " + 0); // DEBUG
+	//lblFPS.html("t: " + t); // DEBUG
 }
-
 
 function Controls_Init() {
 	//Control Setup
